@@ -31,11 +31,14 @@ Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
 	 \item -3.1415
 	 \end{itemize}
 	 \item Oggetti di tipo "Nome": Sono una sequenza di caratteri univoca in formato UTF-8 (escluso il carattere ASCII \texttt{null}) preceduta sempre da una barra obliqua (\texttt{/}). E' usato per definire un set di valori fissi.
-	 \item Oggetti stringa: delle semplici serie di byte scritti come caratteri, racchiusi fra parentesi tonde o come dati in formato esadecimale racchiusi fra parentesi angolari
-	\begin{itemize}
-		\item 
+	 \item Oggetti stringa: delle semplici serie di byte scritti come caratteri, racchiusi fra parentesi tonde o come dati in formato esadecimale racchiusi fra parentesi angolari. Una stringa letterale consiste in un arbitrario numero di caratteri 8 bit racchiusi fra parentesi. Dato che in questo caso qualsiasi carattere può apparire nella stringa le parentesi non bilanciate e il backslash la procedura di escape di questi caratteri viene fatta tramite un ulteriore backslash. Oltre a questo può essere usata la notazione \texttt{\textbackslash ddd}. Le stringhe letterali possono essere di vari tipi:
+		\begin{itemize}
+		\item ASCII : Semplice sequenza di bytes contenente soltanto caratteri ASCII
+		\item PDFDocEncoded: Sequenza di byte codificata secondo lo standard ISO 32000-1:2008 
+		\item Text: Sequenza codifica come PDFDocEncoding o come UTF-16BE (ossia con Byte Order Marker (BOM) in testa
+		\item Date: Una stringa ASCII che segue le direttiva del formato ISO 32000-1:2008 formattata come segue : \texttt{D:YYYYMMDDHHmmSSOHH’mm}
 	\end{itemize}
-	 
+	 \item Oggetti array: Sono collezioni eterogenee di altri oggetti COS racchiuse fra parentesi quadre e separati da un \texttt{white-space}. 
 \end{itemize}
 
 

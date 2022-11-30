@@ -59,27 +59,22 @@ Decimale & Hex & Nome                 \\
 \end{tabular}
 \end{table}
 \newline
-I caratteri \texttt{Carriage Return} e \texttt{Line Feed} sono conosciuti come i caratteri \texttt{newline} e sono trattati come indicatori di fine linea.
+I caratteri \texttt{Carriage Return} e \texttt{Line Feed} sono conosciuti come i caratteri \texttt{newline} e sono trattati come indicatori di fine linea. Il carattere \texttt{\%} indica i "commenti" (utili per denotare informazioni quali la versione dello standard seguito).
+\subsection{Le Sezioni del PDF}
+I documenti PDF sono suddivisi in 4 sezioni : \texttt{header, body, cross-reference table e trailer}.
+\par
+L'header inizia alla posizione 0 del file e consiste in almeno 8 byte seguiti da un marker di fine linea. Come accennato prima servono a contenere l'intestazione che identifica il documento come PDF e la versione del formato. Nel caso il documento contenga anche dati binari, seguirà una seconda linea contenente un carattere indicante i commenti (\%) e 4 caratteri ASCII dal valore maggiore di 127, i più diffusi sono: \texttt{âãÏÓ}. Quindi la presenza alla seconda linea di \texttt{\%âãÏÓ} indica che nel documento è presente un file binario.
+\par
+Il trailer invece occupa gli ultimi byte del documento e consiste nel marker \texttt{trailer} seguito da un oggetto dizionario contenente la chiave \texttt{size} indicante la dimensione in byte del documento e la chiave \texttt{root} che indica il riferimento all'oggetto-catalogo, un particolare oggetto che contiene vari puntatori a vari tipi di oggetti speciali.
+Altri elementi che il trailer può contenere sono la chiave 	\texttt{Encrypt} usata per specificare il dizionario di crittografia del documento, o \texttt{ID} usata per dare un identificatore al file.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-%
+%comandi
 %\par\bigskip
-%Nel corso degli ultimi decenni si è assistito a un costante miglioramento della computer grafica 3D la quale, è ora in grado di fornire uno strumento capace di rappresentare una realtà tanto verosimile all'attuale da rendere difficile la distinzione delle due. 
-%Al contrario, la logica insita alla base della riproduzione di oggetti solidi è rimasta pressoché invariata, caratterizzandosi per il frequente impiego di mesh esclusivamente di superficie.
-%Grazie a quest'ultima è possibile raffigurare un oggetto reale sfruttando una maglia costituita da numerose facce, dette poligoni, in grado di assumerne l'aspetto rivestendolo esternamente come fosse un involucro vuoto (Figura \ref{img:meshExample}). 
+%ref{img:nomeOggetto} -> per i riferimenti alle figure
+
 %
 %\begin{figure}[h!]
 %	\centering
@@ -88,21 +83,7 @@ I caratteri \texttt{Carriage Return} e \texttt{Line Feed} sono conosciuti come i
 %	\label{img:meshExample}
 %\end{figure}
 %
-%Allo sviluppo della potenza di calcolo degli elaboratori è proporzionalmente corrisposto il miglioramento della qualità delle mesh, essendo stati questi ultimi in grado di gestire modelli via via più complessi senza doverne mutare il funzionamento intrinseco. L'esigenza di rivoluzionare questo sistema è stata percepita esclusivamente all'interno di specifici ambienti di lavoro, in cui sono state introdotte delle mesh non più di superficie ma volumetriche. Un valido esempio di questa tendenza è ravvisabile in ambito medico: a seguito di una scansione, questa tecnologia ha reso possibile la ricostruzione virtuale del corpo del paziente, interamente o una sua porzione, rispettandone l'aspetto interno, oltre che quello esterno e permettendo l'identificazione di una più corretta diagnosi (Figura \ref{img:brainMesh}).
-%
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=.40\columnwidth]{images/brainMesh}
-%	\caption{\textit{Sezione di una mesh volumetrica \cite{brainMeshBib}}}
-%	\label{img:brainMesh}
-%\end{figure} 
-%
-%% COS’È UNA MESH VOLUMETRICA
-%La mesh volumetrica dunque, non si limita esclusivamente a rappresentare lo strato più esteriore del modello, ma contiene anche informazioni relative a quello interno. La sua struttura non risulterà più formata da un insieme di poligoni, bensì costituita da un insieme discreto di \textit{voxel}\footnote{Il voxel adotta lo stesso comportamento di un qualsiasi pixel, ma su un piano tridimensionale. Visivamente assimilabile e definibile come un parallelepipedo, il voxel contiene al suo interno informazioni relative, ad esempio, alla sua posizione e al suo colore.} o poliedri che, uniti tra di loro, compongono il modello nella sua interezza. 
-%
-%% VANTAGGI 
-%Nel campo della computer grafica, il suo uso è stato limitato alla simulazione di sostanze liquide o gassose ma potrebbe venire applicato anche per solidi. In virtù della sua particolare struttura infatti, questa tipologia di mesh può fornire all'utente una maggiore interazione con essa, consentendogli di manipolarla dinamicamente andando a simularne sezioni, esplosioni o divisioni.
-%Ad averne particolare beneficio sarebbero il campo dei simulatori o dei videogame poiché le azioni sopraccitate, sono solitamente camuffate con l'uso di mesh precalcolate, producendo spesso effetti visibili sgradevoli e poco verosimili. 
-%
-%% PANORAMICA DEL MIO STUDIO 
-%L'obiettivo posto da questo studio è di implementare un sistema di interazione delle mesh volumetriche all'interno del \textit{game engine} "Unity": i risultati raggiunti sono stati  concretizzati nella produzione di diverse demo che ne evidenziano l'efficacia applicativa. La realizzazione di questo progetto è stata correlata alla produzione di un'analisi prestazionale, finalizzata all'identificazione del limite massimo di poliedri processabili per ottenere un risultato soddisfacente: nell'esaminare le prestazioni dello script connesso a questi processi, infatti, si è evidenziato come all'aumentare della complessità dei modelli corrispondesse un loro maggiore tempo di caricamento\footnote{Per maggiori approfondimenti relativi a quest'aspetto si rimanda al capitolo \ref{risultati}.}. 
+
+%\footnote{} -> per fare le citazioni in basso, va messo vicino al testo
+
+%\ref{valore_etichetta} per riferimenti ad altre sezioni va usato in accoppiata con \label

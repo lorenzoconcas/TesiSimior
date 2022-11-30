@@ -14,6 +14,7 @@ Ogni file inizia con un intestazione leggibile indicante la versione del formato
 \end{center}
 
 La parte costituente e fondamentale di un PDF sono dei blocchi costruttivi chiamati "COS" \textit{"Carousel" Object Structure} (nome del progetto originale diventato in seguito Adobe Acrobat), questi blocchi nonostante il nome non sono dei veri e propri "oggetti" come nei linguaggi \textit{object-oriented}, ma rappresentano la struttura dei documenti.
+Alcuni oggetti sono delimitati da dei cosidetti \texttt{marker} che possono essere parentesi tonde, angolari, particolari caratteri o parole chiave.
 Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
 \begin{itemize}
 	\item Oggetto \textit{null}: è indicato come la semplice sequenza di caratteri \texttt{"null"}, è comunemente utilizzato per indicare la mancanza di un valore
@@ -38,8 +39,10 @@ Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
 		\item Text: Sequenza codifica come PDFDocEncoding o come UTF-16BE (ossia con Byte Order Marker (BOM) in testa
 		\item Date: Una stringa ASCII che segue le direttiva del formato ISO 32000-1:2008 formattata come segue : \texttt{D:YYYYMMDDHHmmSSOHH’mm}
 	\end{itemize}
-	 \item Oggetti array: Sono collezioni eterogenee di altri oggetti COS racchiuse fra parentesi quadre e separati da un \texttt{white-space}. 
-\end{itemize}
+	 \item Oggetti array: Sono collezioni eterogenee di altri oggetti COS racchiuse fra parentesi quadre e separati da un \texttt{white-space}.
+	 \item Oggetti dizionario: E' il tipo oggetto più comune nei PDF ed è la rappresentazione diretta delle collezioni \texttt{chiave-valore}, le chiavi sono sempre degli oggetti di tipo \texttt{nome}. I dizionari sono racchiusi fra doppie parentesi angolari (\texttt{<<>>}) e non vi è limite alla loro dimensione
+	 \item Oggetti stream (flusso): Sono sequenze arbitrarie di byte potenzialmente illimitati, compressi o codificati. Vengono utilizzati per immagazzinare grandi blocchi di dati in altri formati standardizzati (per esempio \texttt{font, immagini, json}, ecc...\newline Gli stream sono sempre preceduti da un oggetto dizionario che ne descrive alcuni attributi fondamentali quali lunghezza del contenuto (obbligatoria) e tipo, questo dizionario è chiamato \texttt{stream dictionary}.\newline Gli stream sono delimitati dai marker \texttt{stream} e \texttt{endstream}
+	\end{itemize}
 
 
 

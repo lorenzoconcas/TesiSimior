@@ -4,7 +4,8 @@ Il \textit{Portable Document Format} è nato nel 1993 da Adobe Inc. con lo scopo
 Essendo un formato libero, possono essere creati programmi che leggono e scrivono documenti PDF senza la necessità di pagare diritti di utilizzo del brevetto, tuttavia l'accesso ai documenti contenenti le specifiche ISO sono a pagamento.
 Nonostante il successo di questa tecnologia, il PDF non è considerato come adeguato alla conservazione sul lungo termine perché la riproduzione può dipendere da sorgenti esterne quali Font o oggetti esterni (link, immagini allegate esternamente ecc).
 \par\bigskip
-\subsection{La struttura del PDF}
+
+\section{La struttura del PDF}
 I PDF sono espressi tramite una sequenza di caratteri ASCII a 7 bit, pertanto le strutture di questo formato seguono tale codifica; fanno eccezione possibili oggetti binari che mantengono il loro flusso di bit originale senza alterazioni.
 Ogni file inizia con un intestazione leggibile indicante la versione del formato:
 \begin{center}
@@ -12,14 +13,13 @@ Ogni file inizia con un intestazione leggibile indicante la versione del formato
 			%PDF-1.4	
 \end{lstlisting}
 \end{center}
-
 La parte costituente e fondamentale di un PDF sono dei blocchi costruttivi chiamati "COS" \textit{"Carousel" Object Structure} (nome del progetto originale diventato in seguito Adobe Acrobat), questi blocchi nonostante il nome non sono dei veri e propri "oggetti" come nei linguaggi \textit{object-oriented}, ma rappresentano la struttura dei documenti.
 Alcuni oggetti sono delimitati da dei cosidetti \texttt{marker} che possono essere parentesi tonde, angolari, particolari caratteri o parole chiave.
 Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
 \begin{itemize}
 	\item Oggetto \textit{null}: è indicato come la semplice sequenza di caratteri \texttt{"null"}, è comunemente utilizzato per indicare la mancanza di un valore
 	\item Oggetti booleani: sono la rappresentazione diretta dei due valori dell'algebra booleana, sono indicati come \texttt{"true"} e \texttt{"false"}, alcuni PDF scritti scorrettamente presentano variazioni nelle maiuscole (es \texttt{TRUE, True, FALSE o False})
-	\item Oggetti numerici : possono essere di due tipi, interi o reali, equivalenti ai rispettivi tipi matematici.\newline I tipi interi consistono in uno o più cifre decimali, precedute opzionalmente dal segno e rappresentano un valore in base 10. Di seguito alcuni esempi
+	\item Oggetti numerici: possono essere di due tipi, interi o reali, equivalenti ai rispettivi tipi matematici.\newline I tipi interi consistono in uno o più cifre decimali, precedute opzionalmente dal segno e rappresentano un valore in base 10. Di seguito alcuni esempi
 	 \begin{itemize} 
 	 	\item 1 
 	 	\item -2134
@@ -43,8 +43,23 @@ Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
 	 \item Oggetti dizionario: E' il tipo oggetto più comune nei PDF ed è la rappresentazione diretta delle collezioni \texttt{chiave-valore}, le chiavi sono sempre degli oggetti di tipo \texttt{nome}. I dizionari sono racchiusi fra doppie parentesi angolari (\texttt{<<>>}) e non vi è limite alla loro dimensione
 	 \item Oggetti stream (flusso): Sono sequenze arbitrarie di byte potenzialmente illimitati, compressi o codificati. Vengono utilizzati per immagazzinare grandi blocchi di dati in altri formati standardizzati (per esempio \texttt{font, immagini, json}, ecc...\newline Gli stream sono sempre preceduti da un oggetto dizionario che ne descrive alcuni attributi fondamentali quali lunghezza del contenuto (obbligatoria) e tipo, questo dizionario è chiamato \texttt{stream dictionary}.\newline Gli stream sono delimitati dai marker \texttt{stream} e \texttt{endstream}
 	\end{itemize}
-
-
+Esistono vari caratteri di tipo \texttt{white-space} utilizzati per separare i costrutti sintattici (es nomi, numeri ecc) fra di loro.
+La seguente tabella mostra i vari tipi di caratteri
+\newline
+\begin{table}[h]
+\center
+\begin{tabular}{lll}
+Decimale & Hex & Nome                 \\
+0        & 00  & NULL                 \\
+9        & 09  & Horizontal Tab       \\
+10       & 0A  & Line Feed (LF)       \\
+12       & 0C  & Form Feed (FF)       \\
+13       & 0D  & Carriage Return (CR) \\
+32       & 20  & Space               
+\end{tabular}
+\end{table}
+\newline
+I caratteri \texttt{Carriage Return} e \texttt{Line Feed} sono conosciuti come i caratteri \texttt{newline} e sono trattati come indicatori di fine linea.
 
 
 

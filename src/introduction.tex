@@ -5,78 +5,9 @@ La principale limitazione di SPIN-UTI è il limite di informazioni inseribili pe
 Il simior è modellato sulle esigenze specifiche del reparto e viene adattato di conseguenza all'evolversi delle necessità.
 La necessità che ha portato alla stesura di questa tesi è l'estrazione delle informazioni dai referti di laboratori, nello specifico gli antibiogrammi.
 Questa funzionalità permette, in maniera semplice per l'operatore, di allegare un referto in formato PDF ed ottenere in una tabella, visivamente analoga ad altre parti del progetto, i dati contenuti nel documento originale.
-\par\bigskip
-
-\section{La struttura dei referti}
-I PDF sono espressi tramite una sequenza di caratteri ASCII a 7 bit, pertanto le strutture di questo formato seguono tale codifica; fanno eccezione possibili oggetti binari che mantengono il loro flusso di bit originale senza alterazioni.
-Ogni file inizia con un intestazione leggibile indicante la versione del formato:
-\begin{center}
-\begin{lstlisting}[language=C]
-			%PDF-1.4	
-\end{lstlisting}
-\end{center}
-La parte costituente e fondamentale di un PDF sono dei blocchi costruttivi chiamati "COS" \textit{"Carousel" Object Structure} (nome del progetto originale diventato in seguito Adobe Acrobat), questi blocchi nonostante il nome non sono dei veri e propri "oggetti" come nei linguaggi \textit{object-oriented}, ma rappresentano la struttura dei documenti.
-Alcuni oggetti sono delimitati da dei cosidetti \texttt{marker} che possono essere parentesi tonde, angolari, particolari caratteri o parole chiave.
-Esistono 9 tipi di oggetti \textit{COS}, ognuno con un compito specifico:
-\begin{itemize}
-	\item Oggetto \textit{null}: è indicato come la semplice sequenza di caratteri \texttt{"null"}, è comunemente utilizzato per indicare la mancanza di un valore
-	\item Oggetti booleani: sono la rappresentazione diretta dei due valori dell'algebra booleana, sono indicati come \texttt{"true"} e \texttt{"false"}, alcuni PDF scritti scorrettamente presentano variazioni nelle maiuscole (es \texttt{TRUE, True, FALSE o False})
-	\item Oggetti numerici: possono essere di due tipi, interi o reali, equivalenti ai rispettivi tipi matematici.\newline I tipi interi consistono in uno o più cifre decimali, precedute opzionalmente dal segno e rappresentano un valore in base 10. Di seguito alcuni esempi
-	 \begin{itemize} 
-	 	\item 1 
-	 	\item -2134
-	 	\item 96
-	 \end{itemize}
-	 I tipi reali presentano in più rispetto agli interi il punto come separazione fra parte intera e parte decimale, non è supportata la notazione esponenziale ne le radici non decimali. Alcuni esempi
-	 \begin{itemize}
-	 \item 0.0099
-	 \item .200
-	 \item -3.1415
-	 \end{itemize}
-	 \item Oggetti di tipo "Nome": Sono una sequenza di caratteri univoca in formato UTF-8 (escluso il carattere ASCII \texttt{null}) preceduta sempre da una barra obliqua (\texttt{/}). E' usato per definire un set di valori fissi.
-	 \item Oggetti stringa: delle semplici serie di byte scritti come caratteri, racchiusi fra parentesi tonde o come dati in formato esadecimale racchiusi fra parentesi angolari. Una stringa letterale consiste in un arbitrario numero di caratteri 8 bit racchiusi fra parentesi. Dato che in questo caso qualsiasi carattere può apparire nella stringa le parentesi non bilanciate e il backslash la procedura di escape di questi caratteri viene fatta tramite un ulteriore backslash. Oltre a questo può essere usata la notazione \texttt{\textbackslash ddd}. Le stringhe letterali possono essere di vari tipi:
-		\begin{itemize}
-		\item ASCII : Semplice sequenza di bytes contenente soltanto caratteri ASCII
-		\item PDFDocEncoded: Sequenza di byte codificata secondo lo standard ISO 32000-1:2008 
-		\item Text: Sequenza codifica come PDFDocEncoding o come UTF-16BE (ossia con Byte Order Marker (BOM) in testa
-		\item Date: Una stringa ASCII che segue le direttiva del formato ISO 32000-1:2008 formattata come segue : \texttt{D:YYYYMMDDHHmmSSOHH’mm}
-	\end{itemize}
-	 \item Oggetti array: Sono collezioni eterogenee di altri oggetti COS racchiuse fra parentesi quadre e separati da un \texttt{white-space}.
-	 \item Oggetti dizionario: E' il tipo oggetto più comune nei PDF ed è la rappresentazione diretta delle collezioni \texttt{chiave-valore}, le chiavi sono sempre degli oggetti di tipo \texttt{nome}. I dizionari sono racchiusi fra doppie parentesi angolari (\texttt{<<>>}) e non vi è limite alla loro dimensione
-	 \item Oggetti stream (flusso): Sono sequenze arbitrarie di byte potenzialmente illimitati, compressi o codificati. Vengono utilizzati per immagazzinare grandi blocchi di dati in altri formati standardizzati (per esempio \texttt{font, immagini, json}, ecc...\newline Gli stream sono sempre preceduti da un oggetto dizionario che ne descrive alcuni attributi fondamentali quali lunghezza del contenuto (obbligatoria) e tipo, questo dizionario è chiamato \texttt{stream dictionary}.\newline Gli stream sono delimitati dai marker \texttt{stream} e \texttt{endstream}
-	\end{itemize}
-Esistono vari caratteri di tipo \texttt{white-space} utilizzati per separare i costrutti sintattici (es nomi, numeri ecc) fra di loro.
-La seguente tabella mostra i vari tipi di caratteri
-\newline
-\begin{table}[h]
-\center
-\begin{tabular}{lll}
-Decimale & Hex & Nome                 \\
-0        & 00  & NULL                 \\
-9        & 09  & Horizontal Tab       \\
-10       & 0A  & Line Feed (LF)       \\
-12       & 0C  & Form Feed (FF)       \\
-13       & 0D  & Carriage Return (CR) \\
-32       & 20  & Space               
-\end{tabular}
-\end{table}
-\newline
-I caratteri \texttt{Carriage Return} e \texttt{Line Feed} sono conosciuti come i caratteri \texttt{newline} e sono trattati come indicatori di fine linea. Il carattere \texttt{\%} indica i "commenti" (utili per denotare informazioni quali la versione dello standard seguito).
-\subsection{Le Sezioni del PDF}
-I documenti PDF sono suddivisi in 4 sezioni : \texttt{Header, Body, Cross-Reference Table e Trailer}.
-\par
-L'\texttt{Header} inizia alla posizione 0 del file e consiste in almeno 8 byte seguiti da un marker di fine linea. Come accennato prima servono a contenere l'intestazione che identifica il documento come PDF e la versione del formato. Nel caso il documento contenga anche dati binari, seguirà una seconda linea contenente un carattere indicante i commenti (\%) e 4 caratteri ASCII dal valore maggiore di 127, i più diffusi sono: \texttt{âãÏÓ}. Quindi la presenza alla seconda linea di \texttt{\%âãÏÓ} indica che nel documento è presente un file binario.
-\par
-Il \texttt{Body} (corpo) è come suggerisce il nome il centro dove vengono inseriti tutti gli oggetti COS che compongono il documento che poi verrà renderizzato e reso visibile, inizia subito dopo l'\texttt{header} senza marker specifici.
-\par
-La \texttt{Cross-Reference Table} è un attributo semplice ma fondamentale per il PDF, infatti questa tabella fornisce gli offset (scostamenti) binari rispetto all'inizio del file di ogni (e per ogni) oggetto indiretto, permettendo cosi all'analizzatore del documento di cercare e leggere più velocemente  gli oggetti in qualsiasi momento garantendo così la possibilità di un accesso casuale piuttosto che una lettura sequenziale, velocizzando anche l'apertura e l'elaborazione. E' delineata dai marker \texttt{xref} 
-\par
-Infine il \texttt{Trailer} invece occupa gli ultimi byte del documento e consiste nel marker \texttt{trailer} seguito da un oggetto dizionario contenente la chiave \texttt{size} indicante la dimensione in byte del documento e la chiave \texttt{root} che indica il riferimento all'oggetto-catalogo, un particolare oggetto che contiene vari puntatori a vari tipi di oggetti speciali.
-Altri elementi che il trailer può contenere sono la chiave 	\texttt{Encrypt} usata per specificare il dizionario di crittografia del documento, o \texttt{ID} usata per dare un identificatore al file.
-
-
-
-
+\section{Differenze con SPIN-UTI}
+\section{Dettagli sul SIMIOR}
+Il Simior è costituito da un applicazione web scritta il cui backend è scritto in Java e il front-end 
 %comandi
 %\par\bigskip
 %ref{img:nomeOggetto} -> per i riferimenti alle figure

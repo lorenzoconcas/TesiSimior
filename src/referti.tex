@@ -14,8 +14,10 @@ Di norma i referti prodotti non superano le due pagine.
 		\end{itemize}
 \end{center}
 \par\bigskip
+\newpage
 \subsection{L'intestazione ATS}
 Il primo blocco, contenente l'intestazione, identifica la provenienza del documento mostrando informazioni sull'ASL quali strutture ad essa collegate, i recapiti telefonici e il logo.
+La presenza di queste informazioni è uno dei requisiti per confermare la validità del documento inserito nel SIMIOR.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/header.png}
@@ -23,7 +25,7 @@ Il primo blocco, contenente l'intestazione, identifica la provenienza del docume
 	\label{fig:header}
 \end{figure}
 \bigskip
-
+\newline
 \subsection{La sezione anagrafica}
 Segue la sezione anagrafica che indica la priorità dell'analisi effettuata, la provenienza del paziente (intesa come reparto di provenienza) e le informazioni personali del paziente.
 \begin{figure}[h!]
@@ -33,18 +35,23 @@ Segue la sezione anagrafica che indica la priorità dell'analisi effettuata, la 
 	\label{fig:header}
 \end{figure}
 \bigskip
+\newline
+La presenza di queste informazioni consente di verificare che il referto inserito nel sistema sia effettivamente del paziente selezionato, prevenendo cosi erronea associazione.
+
+\newpage
 \subsection{Il contenuto del referto}
-Al centro è collocato il risultato dell'analisi, che varia a seconda dell'obbiettivo del test, l'implementazione attuale è progettata per trovare ed estrarre le tabelle antibiogramma. Un esempio di contenuto valido per l'estrazione è quello della \ref{fig:content}
+Nel cuore del referto è collocato il risultato dell'analisi, che varia a seconda dell'obbiettivo del test. L'implementazione attuale è progettata per trovare ed estrarre le tabelle antibiogramma. \ref{fig:content}
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/content.png}
-	\caption{\textit{miao}}
+	\caption{\textit{Un antibiogramma valido per l'estrazione}}
 	\label{fig:content}
 \end{figure}
 \bigskip
-\newpage
+
 \subsection{Il piè di pagina}
-Infine, nel
+Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre è presente un codice  che identifica il referto negli altri sistemi del policlinico.
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/footer.png}
@@ -52,7 +59,7 @@ Infine, nel
 	\label{fig:content}
 \end{figure}
 \bigskip
-
+\newpage
 
 \section{Tipologie di referti}
 Nell'ambito di questa tesi possiamo distinguere 5 tipologie di referti a seconda del loro contenuto:

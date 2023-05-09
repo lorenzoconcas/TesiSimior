@@ -1,13 +1,27 @@
 \chapter{Introduzione}
+\section{SPIN-UTI}
+L'acronimo SPIN-UTI (Simplified Prognostic INSevere Sepsis in ICU) indica un sistema di punteggio pensato per valutare il rischio di mortalità dei pazienti affetti da sepsi grave ricoverati nei reparti di terapia intensiva (UTI).
+\newline
+Questo sistema di punteggio, in uso nel reparto di terapia intensiva del Presidio Ospedaliero Duilio Casula è implementato a livello informatico con l'utilizzo dei software Microsoft Excel e Access, il primo utilizzato per inserire le informazioni e per effettuare i calcoli tramite formule, il secondo utilizzato come base dati.
+Viene logico intuire l'inidoneità del sistema attuale, soprattutto sul fronte organizzativo dei dati.
+
 \section{Il progetto SIMIOR}
-Il Simior è un sistema informatico creato a inizio 2022 per sopperire alle limitazioni attuali del sistema SPIN-UTI attualmente utilizzato dal reparto di terapia intensiva del Presidio Ospedaliero Duilio Casula.
-La principale limitazione di SPIN-UTI è il limite di informazioni inseribili per ogni scheda-paziente, con la conseguente duplicazione delle stesse al fine di memorizzare tutte le informazioni sulla la degenza. Ne risulta un sistema poco ordinato e maggiormente soggetto a errore durante la copia delle informazioni essenziali.
+Il Simior è un sistema informatico creato a inizio 2022 per sopperire alle limitazioni dell'attuale implementazione del sistema di punteggio SPIN-UTI attualmente utilizzato nel già citato reparto di terapia intensiva.
+I destinatari di questo progetto sono i dottori, denominati utenti, che accedendo tramite pagina web potranno inserire le cartelle cliniche dei pazienti in cura, potendo tracciare l'andamento del ricovero e le statistiche del reparto.
+\section{Differenze con l'implementazione attuale}
+La principale limitazione dell'implementazione attuale di SPIN-UTI è il limite di informazioni inseribili per ogni scheda-paziente, con la conseguente duplicazione delle stesse al fine di memorizzare tutte le informazioni sulla la degenza. 
+
+Ne risulta un sistema poco ordinato e maggiormente soggetto a errori durante la copia delle informazioni essenziali.
+\newline
 Il simior è modellato sulle esigenze specifiche del reparto e viene adattato di conseguenza all'evolversi delle necessità.
 La necessità che ha portato alla stesura di questa tesi è l'estrazione delle informazioni dai referti di laboratori, nello specifico gli antibiogrammi.
 Questa funzionalità permette, in maniera semplice per l'operatore, di allegare un referto in formato PDF ed ottenere in una tabella, visivamente analoga ad altre parti del progetto, i dati contenuti nel documento originale.
-\section{Differenze con SPIN-UTI}
-\section{Dettagli sul SIMIOR}
-Il Simior è costituito da un applicazione web scritta il cui backend è scritto in Java e il front-end 
+\section{Dettagli tecnici sul SIMIOR (Da togliere?)}
+Il SIMIOR è implementato come sito web scritto in java in esecuzione sul server open-source GlassFish, ospitato sui servizi AWS di Amazon. Il front-end è implementato con un mix di tecnologie quali JSP (per la gestione delle pagine e dei dati) e Bootstrap per l'impaginazione dei contenuti.
+
+
+
+
 %comandi
 %\par\bigskip
 %ref{img:nomeOggetto} -> per i riferimenti alle figure

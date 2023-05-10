@@ -40,7 +40,8 @@ La presenza di queste informazioni consente di verificare che il referto inserit
 
 \newpage
 \subsection{Il contenuto del referto}
-Nel cuore del referto è collocato il risultato dell'analisi, che varia a seconda dell'obbiettivo del test. L'implementazione attuale è progettata per trovare ed estrarre le tabelle antibiogramma. \ref{fig:content}
+Nel cuore del referto è collocato il risultato dell'analisi, che varia a seconda dell'obbiettivo del test. L'implementazione attuale è progettata per trovare ed estrarre le tabelle antibiogramma. 
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/content.png}
@@ -48,6 +49,8 @@ Nel cuore del referto è collocato il risultato dell'analisi, che varia a second
 	\label{fig:content}
 \end{figure}
 \bigskip
+Nei referti validi, è presente una o più tabelle antibiogramma
+Si può notare come alla tabella sussegua la legenda riferita al campo sensibilità
 
 \subsection{Il piè di pagina}
 Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre è presente un codice  che identifica il referto negli altri sistemi del policlinico.
@@ -55,8 +58,8 @@ Infine, il piè di pagina, che contiene informazioni sulla firma del documento, 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/footer.png}
-	\caption{\textit{Piede di pagina}}
-	\label{fig:content}
+	\caption{\textit{Piè di pagina (Footer)}}
+	\label{fig:footer}
 \end{figure}
 \bigskip
 \newpage
@@ -70,3 +73,9 @@ Nell'ambito di questa tesi possiamo distinguere 5 tipologie di referti a seconda
 	\item Antibiogramma multiplo multi-pagina
 	\item Referto senza tabelle
 \end{itemize}
+\bigskip
+I primi quattro tipi contengono delle tabelle le cui righe indicano l'antibiotico testato, la Minima Concentrazione (MIC) e la Sensibilità, l'insieme di queste righe associate ad microrganismo costituiscono l'antibiogramma.
+Le tabelle multipagina costituiscono una variazione rara ma non impossibile delle prime due tipologie.
+
+\subsection{Singolo Antibiogramma}
+Un esempio di antibiogramma a tabella singola (vedi figura \ref{fig:content}) contiene le i

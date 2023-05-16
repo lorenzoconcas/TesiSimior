@@ -41,6 +41,45 @@
 \usepackage[cal=boondoxo]{mathalfa} % mathcal from STIX, unslanted a bit
 
 \usepackage{subcaption} %consente le didascalie per più immagini affiancate
+
+
+\usepackage{color}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+\lstdefinelanguage{JSON}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  stringstyle=\color{darkblue},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={:,{,}}% list your attributes here
+  string=[s]{"}{"},
+  comment=[l]{:},
+  commentstyle=\color{black},
+}
+
+
 \renewcommand*\oldstylenums[1]{\textosf{#1}}
 
 \linespread{1.1} % Line spacing

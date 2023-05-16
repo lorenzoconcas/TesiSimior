@@ -69,7 +69,7 @@ Infatti anche se la posizione e la dimensione della tabella non è costante, le 
 Per ottenere la posizione degli elementi si è proceduto ad estendere la classe \textit{PDFTextStripper} della libreria aggiungendo prima una lista di oggetti di tipo \texttt{<string, List<TextPosition>}, ogni oggetto di questa lista è composto da una coppia chiave-valore in cui la chiave è una qualsiasi parola estratta e la chiave è una lista di posizioni in cui ogni lettera ha una sua coordinata.
 Come seconda cosa è stato modificato il metodo \textit{writeString} in modo che inserisse nella lista prima citata queste nuove informazioni lasciando però inalterato il resto delle istruzioni.
 \newline
-\subsection{Localizzazione delle celle}
+\subsection{Localizzazione delle celle}\label{Algoritmo finale}
 Una volta generate queste informazioni è possibile rappresentare l'algoritmo come segue:
 \begin{enumerate}
 	\item Si effettua una prima ricerca della tabella in modo analogo al metodo precedente
@@ -84,13 +84,35 @@ Una volta generate queste informazioni è possibile rappresentare l'algoritmo co
 		\item Vengono definite altre due regioni, si tenta l'estrazione e si inseriscono le informazioni raccolte nell'antibiogramma
 		\end{enumerate}
 		\item Fatto questo, si scorre la lista delle parole fino a trovare o la legenda (che indica la fine della tabella e dell'estrazione) o il prossimo antibiotico (si confronta il testo con il dato estratto prima). Nel secondo caso si ferma lo scorrere della lista e si riparte del punto 4.
-		\end{enumerate}
+\end{enumerate}
+		
 Questi 7 passaggi sono ripetuti per ogni pagina del PDF, ed è una soluzione quasi definitiva ma non esente da difetti. Ma cosa succede se ci sono più tabelle per pagina? Semplicemente viene rilevata soltanto la prima tabella e le successive vengono ignorate.
 \section{La soluzione finale}
-In breve, la funzione di estrazione è stata riorganizzata e parti del codice sono state estratte per formare due sotto-funzioni principali: la rilevazione delle tabelle e l'estrazione.
-L'estrazione delle tabelle funziona in modo analogo alla soluzione precedente, con l'unica differenza che viene invocata con gli indici di inizio e di fine della tabella su cui operare. La rilevazione delle tabelle è anch'essa simile a prima ma procede a controllare tutto il resto della pagina. Questo permette di estrarre tutte le tabelle presenti e non solo la prima, rendendo l'algoritmo più preciso.
-Al momento non è ancora possibile estrarre le tabelle divise sa due pagine perché non sono stati forniti esempi, ma la soluzione prevista attualmente è la rimozione delle sezioni \textit{Intestazione (\ref{fig:header}), Anagrafica (\ref{fig:content}) e Piè di Pagina (\ref{fig:content})} da tutte le pagine del referto, a cui segue l'unione di queste pagine in un unica singola pagina su cui operare l'algoritmo attuale. 
-Qui va spiegato meglio il nuovo algoritmo?
+Al fine di ridurre la complessità del codice, è stato effettuata una riorganizzazione e parziale riscrittura che ha portato alla suddivisione del codice in due sotto-funzioni principali: la rilevazione delle tabelle e l'estrazione.
+La rilevazione delle tabelle effettua un controllo pagina per pagina e differentemente da prima la ricerca continua fino all'indice delle line che rappresenta il fine pagina.
+L'estrazione delle tabelle funziona in modo analogo alla soluzione precedente, con l'unica differenza che viene invocata con gli indici di inizio e di fine della tabella su cui operare. 
+Questi piccoli accorgimenti permettono una migliore lettura del codice e di estrarre tutte le tabelle presenti, non soltanto la prima, rendendo l'algoritmo più preciso.
+Non sono ancora stati testati referti con tabelle divise su più pagina perché non sono stati forniti esempi, si pensa che esistano perché nei campioni forniti alcuni presentano informazioni su materiale d'estrazione o componenti grafici in pagine differenti rispetto alla posizione della relativa tabella. Un esempio è la figura \ref{fig:content_multi_1} dove avviene proprio l'esempio del materiale, infatti la tabella relativa si trova nella seconda pagina 
+\newpage
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.99\columnwidth]{images/content_multi_p2.png}
+	\caption{\textit{}}
+	\label{fig:content_multi_2}
+\end{figure} 
+
+La tabella in questione non presenta appunto il materiale su cui è basata l'analisi, poichè non è noto l'algoritmo utilizzato per dividere le informazioni si propone una soluzione aggiuntiva, da verificare una volta ottenuti campioni conformi, nella seguente forma algoritmica:
+\begin{enumerate}
+	\item Per ogni pagina, rimuovere le sezioni:
+	\begin{enumerate}
+		\item \textit{Intestazione} (fig. \ref{fig:header})
+		\item \textit{Anagrafica} (fig. \ref{fig:content})	
+		\item \textit{Piè di Pagina} (fig. \ref{fig:content})
+	\end{enumerate}	
+	\item Unire le pagina in una sola
+	\item Procedere dal punto 1) dell'algoritmo proposto nel paragrafo \ref{Algoritmo finale}
+\end{enumerate}
+
 
 
 

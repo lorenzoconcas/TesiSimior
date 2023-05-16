@@ -55,10 +55,18 @@ Segue la colonna la cui intestazione riporta la parola "MIC", che indica la "Min
 Dopo il MIC segue la colonna che rappresenta la sensibilità del microrganismo all'antibiotico testato con un set di valori definiti nella legenda posta sotto la tabella.
 L'unione del microrganismo, gli antibiotici e relativi mic e sensibilità forma l'antibiogramma per il microrganismo in questione.
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.99\columnwidth]{images/content_senza.png}
+	\caption{\textit{Un referto non valido per l'estrazione delle tabelle}}
+	\label{fig:content_senza}
+\end{figure}
+
+\newpage
+Nella figura \ref{fig:content_senza} viene mostrata la sezione contenuto di un referto dove non sono presenti tabelle estraibili, pertanto non valido ai fini delle funzionalità implementata.
 
 \subsection{Il piè di pagina}
 Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre è presente un codice  che identifica il referto negli altri sistemi del policlinico.
-
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/footer.png}
@@ -67,7 +75,6 @@ Infine, il piè di pagina, che contiene informazioni sulla firma del documento, 
 \end{figure}
 \bigskip
 \newpage
-
 \section{Tipologie di referti}
 Nell'ambito di questa tesi possiamo distinguere 5 tipologie di referti a seconda del loro contenuto:
 \begin{itemize}
@@ -82,7 +89,7 @@ La prima tipologia è costituita da un singolo microrganismo seguito da una tabe
  
 L'antibiogramma multiplo (con più microrganismi) invece presenta più microrganismo accorpati nella stessa tabella, pertanto avremmo una sola colonna per l'antibiotico ma un susseguirsi di colonne MIC-Sensibilità per ciascun microrganismo.
 Le tabelle multipagina costituiscono una variazione rara ma non impossibile delle prime due tipologie, presentando le tabelle fisicamente divise fra una o più pagine.
-
+\newpage
 \subsection{La sorgente dei dati}
 I PDF dei referti sono generati tramite una libreria software chiamata "iText" che riceve in ingresso i dati degli antibiogrammi, sorge dunque spontanea la domanda: 
 \begin{quotation}

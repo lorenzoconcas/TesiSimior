@@ -1,5 +1,14 @@
-\chapter{Modifiche al front-end}
+\chapter{Le modifiche al SIMIOR}
+Per accomodare le nuove funzionalità è stato necessario fare delle modifiche strutturali al SIMIOR, spaziando dal database a classi di gestione dei dati interne al front-end del progetto.
+\section{Modifiche strutturali}
+Le modifiche fatte si possono raggruppare in tre punti:
+\begin{itemize}
+	\item Database
+	\item Archivio Statico
+	\item Front-End
+\end{itemize}
 
-\section{Dove è disponibile la funzionalità}
-\section{Come funziona}
-\section{Cosa ho dovuto cambiare nel simior}
+Oltre al database che contiene i dati creati dagli utenti, il SIMIOR possiede dei dati "statici" che raramente richiedono una modifica, un esempio di questi dati sono i codici degli antibiotici definiti dal sistema ATC/DDD (Anatomical Therapeutic Chemical/Defined Daily Dose) o i codici dei microorganismi definiti dall'Istituto Superiore di Sanità.
+Quando viene effettuato un inserimento di un antibiogramma (sia tramite la nuova funzionalità sia manualmente) il sistema effettua una ricerca in questo archivio statico per estrarre il codice relativo al microrganismo/antibiotico, ma inizialmente questi nomi erano in lingua inglese (sempre seguendo il sistema di origine dei dati) causando il fallimento dell'estrazione. Per ovviare a questo problema si è prima provveduto ad aggiornare l'archivio con la versione italiana e in secondo luogo aggiungendo la possibilità di avere un valore alternativo per casi particolari verificati in alcuni referti.
+Che altro ho cambiato?
+\section{Implementazione FrontEnd}

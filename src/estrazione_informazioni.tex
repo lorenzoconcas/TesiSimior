@@ -31,10 +31,35 @@ L'algoritmo di estrazione era dunque costituito dai seguenti passaggi:
 \begin{enumerate}
 \item Scorrere la lista fino a trovare la stringa corrispondente alla parola "Microrganismo 1" seguito dal nome del microrganismo
 \item Scorrere di 2 posizioni (equivalenti a saltare la riga "Microrganismo 1" e "ANTIBIOTICO MIC")
-\item Verificare ed estrarre le informazioni riguardo alla riga della tabelle tramite regex
+\newpage
+\item Verificare ed estrarre le informazioni riguardo alla riga della tabelle tramite la seguente regex:
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.99\columnwidth]{images/regex.png}
+	\caption{\textit{Regex per l'estrazione delle righe della tabella}}
+	\label{fig:content_multi_1}
+\end{figure}
 \item Ripetere fino all'arrivo della riga contenente la legenda.
 \end{enumerate}
-Il problema di questo metodo è che nelle tabelle con più gruppi MIC-Sensibilità non si riesce ad associare con il gruppo al corretto microrganismo poiché è possibile che alcune celle siano vuote.
+
+Per poter estrarre le informazioni da tabelle con più microrganismi è possibile modificare la regex ripetendo la seconda riga (la parte col gruppo MIC e Sensibilità) quante volte sono i microrganismi individuati.
+Questa soluzione però fallisce nel caso di coppia di celle vuote (che significa analisi antibiotica non condotta per tale microrganismo).
+\newline
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.99\columnwidth]{images/content_multi_p1.png}
+	\caption{\textit{Tabella con più microrganismi}}
+	\label{fig:content_multi_1}
+\end{figure}
+\newline
+Per esempio, nella tabella mostrata nella figura \ref{fig:content_multi_1} soltanto l'ultima riga potrà estrarre dei risultati validi tramite modifica delle regex, che risulterebbe la seguente:
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.99\columnwidth]{images/regex_2.png}
+	\caption{\textit{Regex per l'estrazione delle righe della tabella}}
+	\label{fig:content_multi_1}
+\end{figure}
+Dove \textit{NR\_MICRO} è da sostituire col numero di microrganismi.
 \section{Il secondo approccio}
 Il secondo approccio, che apporta la correzione più significativa rivede completamente la logica di estrazione e aggiunge delle modifiche alla libreria PDFBox.
 Il concetto fondamentale di quest'approccio è un estrazione "ibrida" ossia si ricerca l'inizio della tabella come nel metodo precedente, ma l'estrazione dei dati vera è propria viene effettuata calcolando la posizione delle varie celle.
@@ -65,6 +90,8 @@ Questi 7 passaggi sono ripetuti per ogni pagina del PDF, ed è una soluzione qua
 In breve, la funzione di estrazione è stata riorganizzata e parti del codice sono state estratte per formare due sotto-funzioni principali: la rilevazione delle tabelle e l'estrazione.
 L'estrazione delle tabelle funziona in modo analogo alla soluzione precedente, con l'unica differenza che viene invocata con gli indici di inizio e di fine della tabella su cui operare. La rilevazione delle tabelle è anch'essa simile a prima ma procede a controllare tutto il resto della pagina. Questo permette di estrarre tutte le tabelle presenti e non solo la prima, rendendo l'algoritmo più preciso.
 Al momento non è ancora possibile estrarre le tabelle divise sa due pagine perché non sono stati forniti esempi, ma la soluzione prevista attualmente è la rimozione delle sezioni \textit{Intestazione (\ref{fig:header}), Anagrafica (\ref{fig:content}) e Piè di Pagina (\ref{fig:content})} da tutte le pagine del referto, a cui segue l'unione di queste pagine in un unica singola pagina su cui operare l'algoritmo attuale. 
+Qui va spiegato meglio il nuovo algoritmo?
+
 
 
 

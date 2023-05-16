@@ -16,9 +16,17 @@ Ne risulta un sistema poco ordinato e maggiormente soggetto a errori durante la 
 Il simior è modellato sulle esigenze specifiche del reparto e viene adattato di conseguenza all'evolversi delle necessità.
 La necessità che ha portato alla stesura di questa tesi è l'estrazione delle informazioni dai referti di laboratori, nello specifico gli antibiogrammi.
 Questa funzionalità permette, in maniera semplice per l'operatore, di allegare un referto in formato PDF ed ottenere in una tabella, visivamente analoga ad altre parti del progetto, i dati contenuti nel documento originale.
-\section{Dettagli tecnici sul SIMIOR (Da togliere?)}
-Il SIMIOR è implementato come sito web scritto in java in esecuzione sul server open-source GlassFish, ospitato sui servizi AWS di Amazon. Il front-end è implementato con un mix di tecnologie quali JSP (per la gestione delle pagine e dei dati) e Bootstrap per l'impaginazione dei contenuti.
-
+\section{Tecnologie utilizzate}
+SIMIOR è in sostanza un sito web realizzato con le tecnologie standard del settore, in gran parte viste durante il corso di studi e possono essere riassunte in tre parti
+\begin{itemize}
+	\item Back-End, scritto Java 8 ed eseguito sul server open-source GlassFish
+	\item Front-End, basato sulle JavaServerPages (JSP) con l'aggiunta del framework Bootstrap e della libreria JavaScript jQuery
+	\item Database, gestito dal DBMS PostgreSQL
+\end{itemize}
+Per poter sviluppare il progetto sono stati utilizzati vari software, quali l'IDE IntelliJ IDEA e PgAdmin per la gestione del database,
+mentre la distribuzione del prodotto finale è affidata ai servizi AWS di Amazon, sui cui è presente un istanza EC2 per Simior e un'istanza RDS (\textit{Relational Database Service}) dedicata ad ospitare il DBMS e i dati.
+Al fine di permettere agli utenti di testare il software senza modificare la cosiddetta "produzione" (ossia la versione stabile destinata al pubblico finale) è stata creata un istanza privata ospitata nei server della facoltà in cui sono stati implementati manualmente servizi analoghi a quelli di Amazon.
+Questo percorso di tesi ha quindi avuto l'ulteriore utilità di far conoscere e comprendere il funzionamento di sistemi di distribuzione a livello professionale, sperimentando in prima persona l'organizzazione del software e gli strumenti utilizzati in ambito reale.
 
 
 

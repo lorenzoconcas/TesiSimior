@@ -65,7 +65,7 @@ Il secondo approccio, che apporta la correzione più significativa rivede comple
 Il concetto fondamentale di quest'approccio è un estrazione "ibrida" ossia si ricerca l'inizio della tabella come nel metodo precedente, ma l'estrazione dei dati vera è propria viene effettuata calcolando la posizione delle varie celle.
 \newline
 Infatti anche se la posizione e la dimensione della tabella non è costante, le celle invece lo sono, permettendo un calcolo preciso della loro posizione e conseguente estrazione.
-\subsection{Modifica della libreria}
+\subsection{Modifiche alla libreria}
 Per ottenere la posizione degli elementi si è proceduto ad estendere la classe \textit{PDFTextStripper} della libreria aggiungendo prima una lista di oggetti di tipo \texttt{<string, List<TextPosition>}, ogni oggetto di questa lista è composto da una coppia chiave-valore in cui la chiave è una qualsiasi parola estratta e la chiave è una lista di posizioni in cui ogni lettera ha una sua coordinata.
 Come seconda cosa è stato modificato il metodo \textit{writeString} in modo che inserisse nella lista prima citata queste nuove informazioni lasciando però inalterato il resto delle istruzioni.
 \newline

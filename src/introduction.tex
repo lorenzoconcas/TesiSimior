@@ -1,48 +1,10 @@
 \chapter{Introduzione}
+Nelle Unità di Terapia Intensiva degli ospedali italiani viene effettuata, dal 2005, la sorveglianza delle Infezioni Correlate all'Assistenza (ICA) motivata dal fatto che i pazienti ricoverati nelle UTI presentano un rischio maggiore (dalle 5 alle 10 volte) di contrarre un ICA sia per fattori intrinseci che estrinseci, sia perché le UTI stesse sono epicentro di problemi emergenti di ICA. Oltre a questi due importanti motivi, la scelta di effettuare il monitoraggio è dovuta alla volontà di allinearsi ai progetti europei preesistenti e diventarne quindi componente della rete HAI-Net \footnote{Healthcare-associated Infections Surveillance Network},  
+unendosi prima al network HELICS \footnote{Hospital in Europe Link for Infection Control through Surveillance} e successivamente al progetto IPSE \footnote{Improving Patient Safety in Europe}.
 \section{SPIN-UTI}
-L'acronimo SPIN-UTI (Simplified Prognostic INSevere Sepsis in ICU) indica un sistema di punteggio pensato per valutare il rischio di mortalità dei pazienti affetti da sepsi grave ricoverati nei reparti di terapia intensiva (UTI).
-\newline
-Questo sistema di punteggio, in uso nel reparto di terapia intensiva del Presidio Ospedaliero Duilio Casula è implementato a livello informatico con l'utilizzo dei software Microsoft Excel e Access, il primo utilizzato per inserire le informazioni e per effettuare i calcoli tramite formule, il secondo utilizzato come base dati.
-Viene logico intuire l'inidoneità del sistema attuale, soprattutto sul fronte organizzativo dei dati.
-
-\section{Il progetto SIMIOR}
-Il Simior è un sistema informatico creato a inizio 2022 per sopperire alle limitazioni dell'attuale implementazione del sistema di punteggio SPIN-UTI attualmente utilizzato nel già citato reparto di terapia intensiva.
-I destinatari di questo progetto sono i dottori, denominati utenti, che accedendo tramite pagina web potranno inserire le cartelle cliniche dei pazienti in cura, potendo tracciare l'andamento del ricovero e le statistiche del reparto.
-\section{Differenze con l'implementazione attuale}
-La principale limitazione dell'implementazione attuale di SPIN-UTI è il limite di informazioni inseribili per ogni scheda-paziente, con la conseguente duplicazione delle stesse al fine di memorizzare tutte le informazioni sulla la degenza. 
-
-Ne risulta un sistema poco ordinato e maggiormente soggetto a errori durante la copia delle informazioni essenziali.
-\newline
-Il simior è modellato sulle esigenze specifiche del reparto e viene adattato di conseguenza all'evolversi delle necessità.
-La necessità che ha portato alla stesura di questa tesi è l'estrazione delle informazioni dai referti di laboratori, nello specifico gli antibiogrammi.
-Questa funzionalità permette, in maniera semplice per l'operatore, di allegare un referto in formato PDF ed ottenere in una tabella, visivamente analoga ad altre parti del progetto, i dati contenuti nel documento originale.
-\section{Tecnologie utilizzate}
-SIMIOR è in sostanza un sito web realizzato con le tecnologie standard del settore, in gran parte viste durante il corso di studi e possono essere riassunte in tre parti
-\begin{itemize}
-	\item Back-End, scritto Java 8 ed eseguito sul server open-source GlassFish
-	\item Front-End, basato sulle JavaServerPages (JSP) con l'aggiunta del framework Bootstrap e della libreria JavaScript jQuery
-	\item Database, gestito dal DBMS PostgreSQL
-\end{itemize}
-Per poter sviluppare il progetto sono stati utilizzati vari software, quali l'IDE IntelliJ IDEA e PgAdmin per la gestione del database,
-mentre la distribuzione del prodotto finale è affidata ai servizi AWS di Amazon, sui cui è presente un istanza EC2 per Simior e un'istanza RDS (\textit{Relational Database Service}) dedicata ad ospitare il DBMS e i dati.
-Al fine di permettere agli utenti di testare il software senza modificare la cosiddetta "produzione" (ossia la versione stabile destinata al pubblico finale) è stata creata un istanza privata ospitata nei server della facoltà in cui sono stati implementati manualmente servizi analoghi a quelli di Amazon.
-Questo percorso di tesi ha quindi avuto l'ulteriore utilità di far conoscere e comprendere il funzionamento di sistemi di distribuzione a livello professionale, sperimentando in prima persona l'organizzazione del software e gli strumenti utilizzati in ambito reale.
-
-
-
-%comandi
-%\par\bigskip
-%ref{img:nomeOggetto} -> per i riferimenti alle figure
-
-%
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=.40\columnwidth]{images/meshExample}
-%	\caption{\textit{Sezione di una mesh di superficie}}
-%	\label{img:meshExample}
-%\end{figure}
-%
-
-%\footnote{} -> per fare le citazioni in basso, va messo vicino al testo
-
-%\ref{valore_etichetta} per riferimenti ad altre sezioni va usato in accoppiata con \label
+L'obbiettivo del progetto SPIN-UTI (acronimo di \textit{Sorveglianza attiva Prospettica delle Infezioni Nosocomiali nelle Unità di Terapia Intensiva}) è quello di assicurare la standardizzazione delle definizioni, della raccolta dei dati e delle procedure di feedback da parte delle strutture ospedaliere partecipanti alla sorveglianza nazionale ed europea delle ICA nelle UTI, col fine ultimo di migliorare la qualità dell'assistenza a livello europeo nelle UTI stesse.
+\newpage
+\section{Soggetto di studio}
+Il reparto di terapia intensiva del Policlinico Ospedaliero Duilio Casula, al pari degli altri reparti nel sistema sanitario nazionale, adotta il sistema SPIN-UTI, con un 
+implementazione informatica inadeguata per gli standard moderni. Per sopperire a queste insufficienze la facoltà di Informatica dell'Università di Cagliari ha creato un nuovo sistema informatico denominato SIMIOR\footnote{Inserire acronimo simior}, sviluppato su misura per le esigenze del reparto. I dati inseriti nel progetto contribuiscono al calcolo del punteggio di SPIN-UTI e le relative statistiche, ma la procedura di inserimento richiede attualmente un operazione manuale da parte dei medici autorizzati. Ne conseguono dunque vari problemi, che spaziano dall'errore umano nella trascrizione alla pesantezza dell'operazione data dalla mole di dati da trascrivere.
+In questa tesi viene mostrato il lavoro svolto per implementare la funzionalità di analisi ed estrazione delle informazioni dai referti, con dettaglio sulle differenze fra sistema attuale e proposto, sulla struttura dei referti medici\ e le modifiche effettuate sul SIMIOR per inserire la funzionalità

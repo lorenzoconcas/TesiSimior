@@ -1,9 +1,9 @@
 \chapter{Conclusioni}
-\section{Risultati}
-I risultati sono stati raccolti da due fonti: le mail scambiate con i medici e i feedback rilasciati nella relativa sezione inserita nel progetto per questa tesi.
-Il sistema è stato giudicato ottimo sia per la semplicità che per la correttezza dell'implementazione, con una volontà da parte degli utenti di sfruttare il più possibile il sistema e trovare una soluzione agli impedimenti burocratici incontrati nella fase di distribuzione del progetto (si tratta dei problemi legati alla privacy citati inizialmente e dei costi di gestione del progetto)
+In questa tesi abbiamo presentato l'implementazione della funzione di estrazione di dati clinici da referti, in un progetto nato per sopperire alle mancanze di un sistema adeguato nel reparto UTI del Policlinico, analizzando la situazione attuale nei suoi aspetti chiave con dettaglio, mostrando il progresso compiuto dal progetto nel suo primo anno di vita e illustrando la struttura dei documenti che sono stati il fulcro di questa ricerca. Questo studio ha portato alla contribuzione di una funzionalità chiave in un sistema robusto, capace di adattarsi alle esigenze più complesse con l'obbiettivo ultimo di migliorare la cura dei pazienti.
+
 \section{Sviluppi futuri}
 L'estrazione delle tabelle antibiogramma è soltanto una parte dell'automazione implementabile tramite questo sistema, è infatti possibile espandere le funzioni per ottenere dai referti qualsiasi tipo di informazione. 
 Sono attualmente implementati, ma non utilizzati, metodi per estrarre informazioni in modo mirato, generando un livello di astrazione utile per usi futuri che esulano il programmatore dal riscrivere parti complesse di codice.
 Un esempio sono le informazioni contenute nella sezione anagrafica (figura \ref{fig:header}) per cui il sistema è già predisposto ad estrarne i dati, i quali permetterebbe la creazione di schede ricovero da un semplice referto.
+Queste limitazioni sono imposte da questioni di natura burocratica e legislativa, la prima impedisce un espansione del sistema per via delle procedure richieste dalle aziende pubbliche in materia economica (es la gestione del sistema su cui il SIMIOR viene eseguito), la seconda impedisce una maggiore ricchezza di informazioni, sono infatti esclusi dettagli personali dei pazienti (es codice fiscale, nome e cognome). 
 

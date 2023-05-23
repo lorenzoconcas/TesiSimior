@@ -1,13 +1,13 @@
 \chapter{SPIN-UTI e SIMIOR}
 \section{Implementazione di SPIN-UTI}
 Il sistema SPIN-UTI nel reparto di terapia intensiva del Presidio Ospedaliero Duilio Casula è implementato a livello informatico con l'utilizzo dei software Microsoft Excel e Access, il primo utilizzato per inserire le informazioni e per effettuare i calcoli tramite formule, il secondo utilizzato come base dati.
-Nel mondo informatico, l'utilizzo accoppiato di questi due software è noto per essere un sistema debole di organizzazione e salvataggio dati, dettato dai limiti di archiviazione dello stesso Access, alla rappresentazione più criptica dei dati in Excel (soprattutto se confrontati con un implementazione ad-hoc di un sistema di visualizzazione).
+Nel mondo informatico, l'utilizzo accoppiato di questi due software è noto per essere un sistema debole di organizzazione e salvataggio dati, dettato dai limiti di archiviazione dello stesso Access, alla rappresentazione più criptica dei dati in Excel (soprattutto se confrontati con un'implementazione ad-hoc di un sistema di visualizzazione).
 Viene dunque logico, intuire l'inidoneità del sistema attuale, soprattutto sul fronte organizzativo dei dati.
 \section{Limitazioni del sistema attuale}
 La principale limitazione dell'implementazione attuale del sistema implementato è il limite di informazioni (dette \textit{record}) inseribili per ogni paziente, con la conseguente duplicazione delle schede al fine di memorizzare tutte le informazioni sulla la degenza. 
 Ne risulta un sistema poco ordinato e maggiormente soggetto a errori durante la copia delle informazioni essenziali.
 Anche la raccolta delle statistiche (fulcro del sistema SPIN-UTI) è pesantemente limitata da questa divisione, poiché il recupero delle stesse è reso difficoltoso.
-Infine vi è il problema della manutenzione del sistema, difatti non vi è alcuna garanzia riguardo alla persistenza e alla sicurezza dei dati, ciò significa che non sono presenti sistemi che assicurino \textit{backup} dei dati e protezione contro accessi malintenzionati. \footnote{Ad eccezione della semplice password a protezione dell'account utente, comunque insufficiente}
+Infine, vi è il problema della manutenzione del sistema, difatti non vi è alcuna garanzia riguardo alla persistenza e alla sicurezza dei dati, ciò significa che non sono presenti sistemi che assicurino \textit{backup} dei dati e protezione contro accessi malintenzionati. \footnote{Ad eccezione della semplice password a protezione dell'account utente, comunque insufficiente}
 \section{Il progetto SIMIOR}
 Il Simior è un sistema informatico creato a inizio 2022 per sopperire alle limitazioni appena descritte, ed è attualmente utilizzato in fase sperimentale nel già citato reparto di terapia intensiva.
 I destinatari di questo progetto sono i dottori, denominati utenti, che accedendo tramite pagina web potranno inserire le cartelle cliniche dei pazienti in cura, potendo tracciare l'andamento del ricovero e le statistiche del reparto.

@@ -36,7 +36,7 @@ Segue la sezione anagrafica che indica la priorità dell'analisi effettuata, la 
 \end{figure}
 \bigskip
 \newline
-La presenza di queste informazioni consente di verificare che il referto inserito nel sistema sia effettivamente del paziente selezionato, prevenendo cosi erronea associazione.
+La presenza di queste informazioni consente di verificare che il referto inserito nel sistema sia effettivamente del paziente selezionato, prevenendo così un un’associazione erronea.
 
 \newpage
 \subsection{Il contenuto del referto}
@@ -50,10 +50,10 @@ Nel cuore del referto è collocato il risultato dell'analisi, che varia a second
 \end{figure}
 \bigskip
 Nei referti validi, è presente una o più tabelle antibiogramma costituita da un minimo di tre colonne e un massimo indefinito ma solitamente non più di sette (una per gli antibiotici e due per ogni microrganismo fino a tre).
-La prima colonna, comune a tutti i microrganismi a cui la tabella fa riferimento, indicano l'antibiotico testato e valori risultanti.
+La prima colonna, comune a tutti i microrganismi a cui la tabella fa riferimento, denota l'antibiotico testato e valori risultanti.
 Segue la colonna la cui intestazione riporta la parola "MIC", che indica la "Minima Concentrazione" ossia la concentrazione più bassa (solitamente espressa come $\mu$g/mL ) per cui un determinato antibiotico è capace di inibire la crescita del microrganismo associato.
 Dopo il MIC segue la colonna che rappresenta la sensibilità del microrganismo all'antibiotico testato con un set di valori definiti nella legenda posta sotto la tabella.
-L'unione del microrganismo, gli antibiotici e relativi mic e sensibilità forma l'antibiogramma per il microrganismo in questione.
+L'unione del microrganismo, gli antibiotici e relativi MIC e sensibilità forma l'antibiogramma per il microrganismo in questione.
 
 \begin{figure}[h!]
 	\centering
@@ -66,7 +66,7 @@ L'unione del microrganismo, gli antibiotici e relativi mic e sensibilità forma 
 Nella figura \ref{fig:content_senza} viene mostrata la sezione contenuto di un referto dove non sono presenti tabelle estraibili, pertanto non valido ai fini delle funzionalità implementata.
 
 \subsection{Il piè di pagina}
-Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre è presente un codice  che identifica il referto negli altri sistemi del policlinico.
+Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre, è presente un codice  che identifica il referto negli altri sistemi del policlinico.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/footer.png}
@@ -87,15 +87,15 @@ Nell'ambito di questa tesi possiamo distinguere 5 tipologie di referti a seconda
 \bigskip
 La prima tipologia è costituita da un singolo microrganismo seguito da una tabella con sole tre colonne, strutturate come descritto nel paragrafo 2.1.3, la figura \ref{fig:content} mostra nel dettaglio una tabella ad antibiogramma singolo.
  
-L'antibiogramma multiplo (con più microrganismi) invece presenta più microrganismo accorpati nella stessa tabella, pertanto avremmo una sola colonna per l'antibiotico ma un susseguirsi di colonne MIC-Sensibilità per ciascun microrganismo.
-Le tabelle multipagina costituiscono una variazione rara ma non impossibile delle prime due tipologie, presentando le tabelle fisicamente divise fra una o più pagine.
+L'antibiogramma multiplo (con più microrganismi) invece presenta più microrganismo accorpati nella stessa tabella; pertanto, avremmo una sola colonna per l'antibiotico ma un susseguirsi di colonne MIC-Sensibilità per ciascun microrganismo.
+Le tabelle multi-pagina costituiscono una variazione rara ma non impossibile delle prime due tipologie, presentando le tabelle fisicamente divise fra una o più pagine.
 \newpage
 \section{La sorgente dei dati}
 I PDF dei referti sono generati tramite una libreria software chiamata "iText" che riceve in ingresso i dati degli antibiogrammi, sorge dunque spontanea la domanda: 
 \begin{quotation}
-  "Perchè non aggirare il referto e prelevare i dati dalla sorgente?"
+  "Perché non aggirare il referto e prelevare i dati dalla sorgente?"
 \end{quotation}
-Purtroppo i sistemi informatici del policlinico sono isolati e non di facile modifica, soprattutto a livello legale. Un eventuale alterazione del prodotto software designato implicherebbe un eventuale perdita di supporto dalla casa madre e problemi di privacy. Oltretutto potrebbe essere necessario inserire referti non generati dallo specifico programma utilizzato in un determinato reparto.
+Purtroppo, i sistemi informatici del policlinico sono isolati e non di facile modifica, soprattutto a livello legale. Un eventuale alterazione del prodotto software designato implicherebbe un eventuale perdita di supporto dalla casa madre e problemi di privacy. Oltretutto potrebbe essere necessario inserire referti non generati dallo specifico programma utilizzato in un determinato reparto.
 
 
 

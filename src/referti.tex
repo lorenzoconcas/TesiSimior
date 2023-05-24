@@ -2,18 +2,19 @@
 \section{La struttura dei referti}
 I referti prodotti nei laboratori del policlinico seguono la struttura standard adottata dall'Azienda Tutela Salute Sardegna (dal 2022 Azienda Regionale della Salute, ARES) 
 presentando una divisione in 4 blocchi:
-Se sono presenti più analisi, o le informazioni dell'analisi superano una certa quantità (per esempio un antibiogramma molto lungo) il documento viene suddiviso su più pagine.
-Di norma i referti prodotti non superano le due pagine.
-
 \begin{center}
 	\begin{itemize}
-		\item Intestazione ATS
-		\item Sezione anagrafica
-		\item Contenuto referto
-		\item Piè di pagina
+		\item Intestazione ATS\label{sez_h}
+		\item Sezione anagrafica\label{sez_an}
+		\item Contenuto referto\label{sez_c}
+		\item Piè di pagina\label{sez_p}
 		\end{itemize}
 \end{center}
 \par\bigskip
+Se sono presenti più analisi, o le informazioni dell'analisi superano una certa quantità (per esempio un antibiogramma molto lungo) il documento viene suddiviso su più pagine.
+Di norma i referti prodotti non superano le due pagine.
+
+
 \newpage
 \subsection{L'intestazione ATS}
 Il primo blocco, contenente l'intestazione, identifica la provenienza del documento mostrando informazioni sull'ASL quali strutture ad essa collegate, i recapiti telefonici e il logo.
@@ -27,7 +28,7 @@ La presenza di queste informazioni è uno dei requisiti per confermare la validi
 \bigskip
 \newline
 \subsection{La sezione anagrafica}
-Segue la sezione anagrafica che indica la priorità dell'analisi effettuata, la provenienza del paziente (intesa come reparto di provenienza) e le informazioni personali del paziente.
+Segue la sezione anagrafica, che indica la priorità dell'analisi effettuata, la provenienza del paziente (intesa come reparto di provenienza) e le informazioni personali dello stesso.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/sezione_anagrafica.png}
@@ -37,7 +38,6 @@ Segue la sezione anagrafica che indica la priorità dell'analisi effettuata, la 
 \bigskip
 \newline
 La presenza di queste informazioni consente di verificare che il referto inserito nel sistema sia effettivamente del paziente selezionato, prevenendo così un un’associazione erronea.
-
 \newpage
 \subsection{Il contenuto del referto}
 Nel cuore del referto è collocato il risultato dell'analisi, che varia a seconda dell'obbiettivo del test. L'implementazione attuale è progettata per trovare ed estrarre le tabelle antibiogramma. 
@@ -49,11 +49,11 @@ Nel cuore del referto è collocato il risultato dell'analisi, che varia a second
 	\label{fig:content}
 \end{figure}
 \bigskip
-Nei referti validi, è presente una o più tabelle antibiogramma costituita da un minimo di tre colonne e un massimo indefinito ma solitamente non più di sette (una per gli antibiotici e due per ogni microrganismo fino a tre).
+Nei referti validi, è presente una o più tabelle antibiogramma costituita da un minimo di tre colonne e un massimo indefinito, ma solitamente non più di sette (una per gli antibiotici e due per ogni microrganismo fino a tre di questi).
 La prima colonna, comune a tutti i microrganismi a cui la tabella fa riferimento, denota l'antibiotico testato e valori risultanti.
 Segue la colonna la cui intestazione riporta la parola "MIC", che indica la "Minima Concentrazione" ossia la concentrazione più bassa (solitamente espressa come $\mu$g/mL ) per cui un determinato antibiotico è capace di inibire la crescita del microrganismo associato.
-Dopo il MIC segue la colonna che rappresenta la sensibilità del microrganismo all'antibiotico testato con un set di valori definiti nella legenda posta sotto la tabella.
-L'unione del microrganismo, gli antibiotici e relativi MIC e sensibilità forma l'antibiogramma per il microrganismo in questione.
+Dopo il MIC segue la colonna che rappresenta la sensibilità del microrganismo all'antibiotico testato, il cui valore possibile è indicato nella legenda posta sotto la tabella.
+L'unione del microrganismo, gli antibiotici, i relativi MIC e sensibilità formano l'antibiogramma per il microrganismo in questione.
 
 \begin{figure}[h!]
 	\centering
@@ -63,10 +63,10 @@ L'unione del microrganismo, gli antibiotici e relativi MIC e sensibilità forma 
 \end{figure}
 
 \newpage
-Nella figura \ref{fig:content_senza} viene mostrata la sezione contenuto di un referto dove non sono presenti tabelle estraibili, pertanto non valido ai fini delle funzionalità implementata.
+Nella figura \ref{fig:content_senza} viene mostrata la sezione "contenuto" (\ref{sez_c}) di un referto dove non sono presenti tabelle estraibili, pertanto non valido ai fini delle funzionalità implementata.
 
 \subsection{Il piè di pagina}
-Infine, il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre, è presente un codice  che identifica il referto negli altri sistemi del policlinico.
+Per ultimo il piè di pagina, che contiene informazioni sulla firma del documento, la relativa data e l'ora. Inoltre, è presente un codice  che identifica il referto negli altri sistemi del policlinico.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/footer.png}
@@ -87,7 +87,7 @@ Nell'ambito di questa tesi possiamo distinguere 5 tipologie di referti a seconda
 \bigskip
 La prima tipologia è costituita da un singolo microrganismo seguito da una tabella con sole tre colonne, strutturate come descritto nel paragrafo 2.1.3, la figura \ref{fig:content} mostra nel dettaglio una tabella ad antibiogramma singolo.
  
-L'antibiogramma multiplo (con più microrganismi) invece presenta più microrganismo accorpati nella stessa tabella; pertanto, avremmo una sola colonna per l'antibiotico ma un susseguirsi di colonne MIC-Sensibilità per ciascun microrganismo.
+L'antibiogramma multiplo (con più microrganismi) invece presenta più microrganismi accorpati nella stessa tabella; pertanto, avremmo una sola colonna per l'antibiotico ma un susseguirsi di colonne MIC-Sensibilità per ciascun microrganismo.
 Le tabelle multi-pagina costituiscono una variazione rara ma non impossibile delle prime due tipologie, presentando le tabelle fisicamente divise fra una o più pagine.
 \newpage
 \section{La sorgente dei dati}

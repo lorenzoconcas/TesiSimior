@@ -8,7 +8,7 @@ Le modifiche fatte si possono raggruppare in tre punti:
 	\item Front-End
 \end{itemize}
 \subsection{Il Database}
-Il database è stato alterato per permettere l'inserimento dei valori MIC (precedentemente il campo non esisteva e l'antibiogramma aveva solo la sensibilità per antibiotico), è stata creata inoltre la tabella feedback per permettere di raccogliere segnalazioni o eventuali richieste da parte degli utenti.
+Il database è stato alterato per permettere l'inserimento dei valori MIC \footnote{Precedentemente il campo non esisteva e l'antibiogramma aveva solo la sensibilità per antibiotico}, è stata creata inoltre la tabella feedback per permettere di raccogliere segnalazioni o eventuali richieste da parte degli utenti.
 La funzionalità di invio feedback è disponibile in ogni pagina del sito, accessibile tramite un click sul relativo tasto presente nella \textit{navbar} di fianco al nome utente, la sua attivazione genera un \textit{popup} con un campo di testo (di massimo 2048 caratteri) dove può essere inserito il messaggio. L'invio del feedback in questo modo, permette una raccolta più dettagliata delle informazioni utili al debug, quale la pagina su cui l'utente stava lavorando e i log del sistema.
 \begin{figure}[h!]
 	\centering
@@ -19,8 +19,8 @@ La funzionalità di invio feedback è disponibile in ogni pagina del sito, acces
 \newline
 \subsection{L'Archivio statico}
 Oltre al database che contiene i dati creati dagli utenti, il SIMIOR possiede dei dati "statici" che raramente richiedono una modifica, un esempio di questi dati sono i codici degli antibiotici definiti dal sistema ATC/DDD (Anatomical Therapeutic Chemical/Defined Daily Dose) o i codici dei microorganismi definiti dall'Istituto Superiore di Sanità.
-Essi sono contenuti in un archivio, chiamato internamente \textit{SimiorSelect}, da cui provengono tutti i valori mostrati negli elementi \texttt{<select>} del front-end (da cui il nome), qualsiasi operazione che richieda un inserimento di dati non numerici fa riferimento a questo archivio, e l'estrazione referti non è da meno. Il difetto della precedentemente implementazione riguarda la struttura di queste informazioni, difatti i nomi dei microrganismi e degli antibiotici e i loro codici erano distribuiti su due liste differenti, richiedendo diverse righe di codice ogni qualvolta fosse necessario associare le due informazioni, contribuendo all'errore umano in caso di modifica di queste informazioni (come l'aggiunta di ulteriori antibiotici).
-Si è proceduto quindi alla conversione di questo archivio dal formato XML (più ostico da leggere umanamente) a formato JSON e all'utilizzo di mappe nei casi più adatti (nell'esempio fatto prima). Seguono due esempi dell'organizzazione dei dati, prima (XML):
+Essi sono contenuti in un archivio, chiamato internamente \textit{SimiorSelect}, da cui provengono tutti i valori mostrati negli elementi \texttt{<select>} del front-end (da cui il nome), qualsiasi operazione che richieda un inserimento di dati non numerici fa riferimento a questo archivio, e l'estrazione referti non è da meno. Il difetto della precedente implementazione riguarda la struttura di queste informazioni, difatti i nomi dei microrganismi e degli antibiotici e i loro codici erano distribuiti su due liste differenti, richiedendo diverse righe di codice ogni qualvolta fosse necessario associare le due informazioni, contribuendo all'errore umano in caso di modifica delle stesse (per esempio l'aggiunta di ulteriori antibiotici).
+Si è proceduto, quindi, alla conversione di questo archivio dal formato XML (più ostico da leggere umanamente) a formato JSON e all'utilizzo di mappe nei casi più adatti (nell'esempio fatto prima). Seguono due esempi dell'organizzazione dei dati, prima (XML):
 \begin{lstlisting}[language=xml]
 <antibiotico>
         <valore>Neomycin (oral)</valore>
@@ -41,13 +41,13 @@ e dopo la conversione (JSON):
         "A07AA02": "Nistatina",
  }
 \end{lstlisting}
-E' evidente la maggior semplicità (e leggibilità) della struttura utilizzata, che mostra i suoi effetti anche nelle prestazioni, infatti l'utilizzo di mappe Chiave-Valore permette un accesso più rapido rispetto a un doppio scorrimento della lista, difatti la complessità (in termini di tempo) della ricerca lineare è $O(N)$, visto lo scorrimento di due liste diventa $2*O(N)$, l'accesso tramite mappa viene fatto calcolato l'hash che è sempre eseguito in tempo costante $O(1)$.
+E' evidente la maggior semplicità (e leggibilità) della struttura utilizzata, che mostra i suoi effetti anche nelle prestazioni, infatti l'utilizzo di mappe Chiave-Valore permette un accesso più rapido rispetto a un doppio scorrimento della lista, difatti la complessità (in termini di tempo) della ricerca lineare è $O(N)$, visto lo scorrimento di due liste diventa $2*O(N)$, l'accesso tramite mappa viene fatto calcolando l'hash che è sempre eseguito in tempo costante $O(1)$.
 Queste modifiche si rivelano particolarmente utili in tutti quei casi dove è necessario recuperare i codici degli antibiotici o dei microrganismi, come nel caso dell'inserimento di un antibiogramma (sia tramite la nuova funzionalità sia manualmente) dove è necessario convertire un nome \textit{human-friendly} in una stringa identificativa univoca.
-Oltre alla conversione è stata effettuata anche la traduzione di determinati valori, difatti i referti indicano i antibiotici e microrganismi in italiano, mentre i dati dell'archivio derivano dal sistema internazionale di classificazione, pertanto sono indicati in lingua inglese. Esistono dei casi particolari in cui alcuni antibiotici indicati nei PDF hanno un nome alternativo, spesso il nome scientifico, che viene gestito con l'aggiunta della corretta alternativa fra parentesi vicino al nome principale (es: la \textit{Benzilpenicillina benzatinica} comunemente conosciuta come \textit{Benzatina penicillina G} sarà indicata come un solo nome cosi strutturato: \textit{"Benzilpenicillina benzatinica (benzatina penicillina G)"})
+Oltre alla conversione è stata effettuata anche la traduzione di determinati valori, difatti i referti indicano gli antibiotici e i microrganismi in italiano, mentre i dati dell'archivio derivano dal sistema internazionale di classificazione, pertanto sono indicati in lingua inglese. Esistono dei casi particolari in cui alcuni antibiotici indicati nei PDF hanno un nome alternativo, spesso il nome scientifico, che viene gestito con l'aggiunta della corretta alternativa fra parentesi vicino al nome principale (es: la \textit{Benzilpenicillina benzatinica} comunemente conosciuta come \textit{Benzatina penicillina G} sarà indicata come un solo nome cosi strutturato: \textit{"Benzilpenicillina benzatinica (benzatina penicillina G)"})
 \newpage
 \section{Front-End}
 L'utente può utilizzare la funzionalità recandosi nella sezione \textit{infezione, contaminazione o colonizzazione} di un qualsiasi ricovero, dove troverà una scheda contenente l'essenziale per poter allegare un referto e procedere con il caricamento.
-Ogni sezione è stata progettata per essere semplice e analoga ad altre parti del progetto per evitare confusione da parte dell'utilizzatore finale che è già abituato ai meccanismi del sistema. Infatti, la schermata dei risultati ha lo stesso aspetto dell'inserimento manuale dell'antibiogramma (una funzione di base del SIMIOR) con qualche aggiunta resa necessaria.
+Ogni sezione è stata progettata per essere semplice e analoga ad altre parti del progetto per evitare confusione da parte dell'utilizzatore finale, che è già abituato ai meccanismi del sistema. Infatti, la schermata dei risultati ha lo stesso aspetto dell'inserimento manuale dell'antibiogramma (una funzione di base del SIMIOR) con qualche aggiunta resa necessaria.
 \subsection{Collocazione della funzionalità}
 \begin{figure}[h!]
 	\centering
@@ -58,8 +58,8 @@ Ogni sezione è stata progettata per essere semplice e analoga ad altre parti de
 La pressione del tasto \textit{"Sfoglia"} aprirà una schermata di dialogo gestita dal sistema che permetterà di selezionare il file determinato. Fatto questo l'utente procede alla pressione del tasto \textit{Carica} che lo porterà a una seconda pagina dove verranno mostrati i risultati dell'estrazione.
 \newpage
 \subsection{La schermata dei risultati}
-Una volta eseguita da parte del back-end l'elaborazione del documento, i risultati vengono mostrati all'utente il quale avrà la possibilità di apportare modifiche o confermare i dati estratti.
-Nella sezione superiore della pagina delle schede mostreranno un breve riepilogo, informando l'utilizzatore quali microrganismi hanno un antibiogramma valido ed eventuali microrganismi e antibiotici sconosciuti al sistema (quindi non presente nell'archivio statico, vedi sezione \ref{modifiche_strutturali}.
+Una volta eseguita da parte del back-end l'elaborazione del documento, i risultati vengono mostrati all'utente, il quale avrà la possibilità di apportare modifiche o confermare i dati estratti.
+Nella sezione superiore della pagina delle schede mostreranno un breve riepilogo, informando l'utilizzatore quali microrganismi hanno un antibiogramma valido ed eventuali microrganismi e antibiotici sconosciuti al sistema (quindi non presente nell'archivio statico, vedi sezione \ref{modifiche_strutturali}).
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/extraction_result.png}
@@ -83,7 +83,7 @@ Allo stesso modo vengono segnalati eventuali antibiotici sconosciuti, ma a diffe
 	\label{fig:missing_anti}
 \end{figure}
 \newpage
-In caso non tutti i dati siano estratti correttamente è possibile aggiungere o togliere manualmente informazioni, le opzioni di aggiunta sono disponibili nel menù drop-down posizionato in alto a destra nella scheda contenente la tabella.
+In caso non tutti i dati siano estratti correttamente è possibile aggiungere o togliere manualmente informazioni, le opzioni di aggiunta sono disponibili nel menù \textit{drop-down} posizionato in alto a destra nella scheda contenente la tabella.
 Per modificare un valore errato è sufficiente scegliere un'alternativa nella relativa lista, mentre per eliminare un valore (antibiotico o microrganismo) si seleziona l'elemento vuoto nella lista (indicato con un trattino), l'eliminazione ha un effetto 
 "a cascata" che segue la seguente gerarchia: microrganismo -> antibiotico -> MIC e sensibilità, quindi l'eliminazione dell'antibiotico elimina l'intera riga mentre l'eliminazione del microrganismo elimina l'intero antibiogramma associato
 \begin{figure}[h!]
@@ -93,7 +93,7 @@ Per modificare un valore errato è sufficiente scegliere un'alternativa nella re
 	\label{fig:new_object}
 \end{figure}
 \newpage
-Nel caso di più antibiogrammi estratti viene generata una pagina per ognuno 
+Nel caso di più antibiogrammi estratti viene generata una pagina per ognuno di essi
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/result_multi.png}
@@ -102,7 +102,7 @@ Nel caso di più antibiogrammi estratti viene generata una pagina per ognuno
 \end{figure}
 \newpage
 \subsection{Conferma dei risultati}
-Una volta apportate le modifiche ritenute opportune, l'utente conferma i dati col relativo tasto, un messaggio indicherà il risultato dell'inserimento
+Una volta apportate le modifiche ritenute opportune, l'utente conferma i dati col relativo tasto, e un messaggio indicherà il risultato dell'inserimento
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.99\columnwidth]{images/confirm.png}

@@ -12,15 +12,15 @@ Infine, vi è il problema della manutenzione del sistema, difatti non vi è alcu
 Il Simior è un sistema informatico creato a inizio 2022 per sopperire alle limitazioni appena descritte, ed è attualmente utilizzato in fase sperimentale nel già citato reparto di terapia intensiva.
 I destinatari di questo progetto sono i dottori, denominati utenti, che accedendo tramite pagina web potranno inserire le cartelle cliniche dei pazienti in cura, potendo tracciare l'andamento del ricovero e le statistiche del reparto.
 \section{Differenze con l'implementazione attuale}
-Nel SIMIOR viene fatto un uso di un sistema di gestione di basi dati (\textit{DMBS, Database Management System}) che permette tre vantaggi principali:
+Nel SIMIOR viene fatto un uso di un sistema di gestione di basi dati relazionale (\textit{RDMBS, Relational Database Management System}) chiamato PostgreSQL, conosciuto e apprezzato sia in ambiente accademico che in realtà professionali affermate. I benefici dell'utilizzo di un RDMBS in questa situazione si riassumono in tre vantaggi principali:
 \begin{itemize}
 	\item Sopperire alle limitazioni di memoria di Access
 	\item Costruire una struttura dati più efficiente e veloce nell'inserimento e nel recupero delle informazioni \footnote{in parte come beneficio ereditato dal tipo di tecnologia}
 	\item Esprimere interrogazione più complesse
 \end{itemize}
-Visivamente, l'utente non viene caricato di tutte le informazioni del paziente scelto, ma ha subito un quadro chiaro del sistema con statistiche aggiornate automaticamente e la lista dei pazienti corredate di informazioni essenziali (es: data ricovero, codice paziente, motivo del ricovero). Solo una volta selezionato un paziente verranno mostrate più informazioni, sempre organizzate in relative sezioni, con eventuali grafici che meglio riescono a spiegare un determinato andamento.
+Questo ha permesso al progetto di organizzare al meglio i dati e semplificare l'organizzazione visiva degli stessi, ne risulta che l'utente non viene caricato di tutte le informazioni del paziente scelto, ma ha subito un quadro chiaro del sistema. Nella schermata principale sono presenti statistiche aggiornate automaticamente e la lista dei pazienti corredate di informazioni essenziali (es: data ricovero, codice paziente, motivo del ricovero). Solo una volta selezionato un paziente verranno mostrate più informazioni, sempre organizzate in relative sezioni, con eventuali grafici che meglio riescono a spiegare un determinato andamento.
 Oltre a questi vantaggi, il SIMIOR è modellato sulle esigenze specifiche del reparto e viene adattato di conseguenza all'evolversi delle necessità a differenza del binomio Excel-Access. \footnote{E' impossibile implementare funzionalità specifiche in questi software per via della loro natura \textit{closed-source} che non li rende liberamente modificabili}
-La funzionalità richiesta che ha portato alla stesura di questa tesi è l'inserimento dei referti di laboratorio per poterne estrarre informazioni, in particolare modo gli antibiogrammi, grazie ad essa è possibile automatizzare il processo di trascrizione dei referti, semplificando e velocizzando il lavoro dell'utente, con conseguente riduzioni degli errori.
+La funzionalità richiesta che ha portato alla stesura di questa tesi è l'inserimento dei referti di laboratorio per poterne estrarre informazioni, in particolar modo gli antibiogrammi, grazie ad essa è possibile automatizzare il processo di trascrizione dei referti, semplificando e velocizzando il lavoro dell'utente, con conseguente riduzioni degli errori.
 
 
 %\par\bigskip
